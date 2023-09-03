@@ -126,6 +126,12 @@ select:focus {
   outline-offset: -1px;
 }
 
+.gap-1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap : 1rem;
+}
 /* Parent selector, finally 😃 */
 button:has(svg) {
   line-height: 0;

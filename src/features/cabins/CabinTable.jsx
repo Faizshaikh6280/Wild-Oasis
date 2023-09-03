@@ -43,9 +43,10 @@ function CabinTable() {
       <TableHeader role="row">
         <div>Image</div>
         <div>Cabin</div>
-        <div>Capacity</div>.<div>Price</div>
+        <div>Capacity</div>
+        <div>Price</div>
         <div>Discount</div>
-        {/* <div>Description</div> */}
+        <div>Edit/Delete</div>
       </TableHeader>
       {cabins.map((cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
