@@ -3,6 +3,8 @@ import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
 import Button from "../../ui/Button";
 import { useDeleteCabin } from "./useDeleteCabin";
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import { useCreateCabin } from "./useCreateCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -45,39 +47,46 @@ const Discount = styled.div`
 function CabinRow({ cabin }) {
   const [showForm, setShowForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
   const {
     id: cabinID,
     description,
     name,
     image,
     maxCapacity,
-    regularPrice: price,
+    regularPrice,
     discount,
   } = cabin;
+
+  function handleDuplicates() {
+    createCabin({
+      name: `Copy of ${name}`,
+      description,
+      image,
+      regularPrice,
+      discount,
+      maxCapacity,
+    });
+  }
+
   return (
     <>
       <TableRow role="row">
         <Img src={image} />
         <Cabin> {name} </Cabin>
         <div>Fits upto {maxCapacity}</div>
-        <Price>{price}</Price>
+        <Price>{regularPrice}</Price>
         <Discount>{discount}</Discount>
         <div className="gap-1">
-          <Button
-            variations="primary"
-            size="small"
-            onClick={() => setShowForm((sf) => !sf)}
-          >
-            Edit{" "}
-          </Button>
-          <Button
-            variations="secondary"
-            size="small"
-            onClick={() => deleteCabin(cabinID)}
-            disabled={isDeleting}
-          >
-            Delete
-          </Button>
+          <button disabled={isCreating}>
+            <HiSquare2Stack onClick={handleDuplicates} />
+          </button>
+          <button onClick={() => setShowForm((sf) => !sf)}>
+            <HiPencil />
+          </button>
+          <button onClick={() => deleteCabin(cabinID)} disabled={isDeleting}>
+            <HiTrash />
+          </button>
         </div>
       </TableRow>
       {showForm && (

@@ -7,9 +7,6 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createEditCabin } from "../../services/apiCabin";
-import { toast } from "react-hot-toast";
 import { useCreateCabin } from "./useCreateCabin";
 import { useEditCabin } from "./useEditCabin";
 
@@ -128,7 +125,7 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
           {...register("discount", {
             required: "This field is required!",
             validate: (value) =>
-              value <= getValues().regularPrice ||
+              getValues().regularPrice >= value ||
               "Discount should be less than regular price.",
           })}
           type="number"
