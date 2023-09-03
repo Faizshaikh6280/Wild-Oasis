@@ -10,7 +10,6 @@ export async function getCabins() {
 }
 
 export async function createEditCabin(newCabin, id) {
-  console.log(newCabin, id);
   const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
 
   // NOTE💡: Image name should be differnet and should not contain any slashes otherwise supabse will create folder in our bucket.
