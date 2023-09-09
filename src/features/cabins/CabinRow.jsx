@@ -74,7 +74,7 @@ function CabinRow({ cabin }) {
     <Table.Row role="row">
       <Img src={image} />
       <Cabin> {name} </Cabin>
-      <div>Fits upto {maxCapacity}</div>
+      <div>Fits upto {maxCapacity} guest</div>
       <Price>{regularPrice}</Price>
       <Discount>{discount ? discount : "_"}</Discount>
       <div className="gap-1">
