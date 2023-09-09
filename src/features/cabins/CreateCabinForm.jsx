@@ -37,7 +37,7 @@ const StyledFormRow = styled.div`
   }
 `;
 
-function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
+function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
   const { register, handleSubmit, reset, getValues, formState } = useForm({
@@ -56,9 +56,8 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
         { newCabinData: { ...data, image }, id: editId },
         {
           onSuccess: (data) => {
-            console.log(data);
+            onCloseModal?.();
             reset();
-            setShowForm?.((sf) => !sf);
           },
         }
       );
@@ -67,7 +66,7 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
         { ...data, image: image },
         {
           onSuccess: (data) => {
-            // console.log(data);
+            onCloseModal?.();
             reset();
           },
         }
@@ -81,11 +80,15 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       <FormRow label={"Cabin name"} error={errors?.name?.message}>
         <Input
           {...register("name", {
             required: "This field is required!",
+            errorColor: "green",
           })}
           type="text"
           id="name"
@@ -140,6 +143,8 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
           id="description"
           defaultValue=""
           {...register("description")}
+          rows={5}
+          cols={20}
         />
       </FormRow>
 
@@ -156,7 +161,12 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
 
       <StyledFormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset" size="small">
+        <Button
+          variation="secondary"
+          type="reset"
+          size="small"
+          onClick={() => onCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button variations="primary" size="small" disabled={isWorking}>
