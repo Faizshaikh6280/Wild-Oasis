@@ -7,7 +7,7 @@ import Empty from "../ui/Empty";
 import BookingTableOperations from "../features/bookings/BookingTableOperations";
 
 function Bookings() {
-  const { bookings, isLoading, error } = useBookings();
+  const { bookings, isLoading, error, count } = useBookings();
   if (isLoading) return <Spinner />;
   if (bookings.length === 0) return <Empty resource={"bookings"} />;
   return (
@@ -17,7 +17,7 @@ function Bookings() {
         <BookingTableOperations />
       </Row>
       <br />
-      <BookingTable bookings={bookings} />
+      <BookingTable bookings={bookings} count={count} />
     </>
   );
 }

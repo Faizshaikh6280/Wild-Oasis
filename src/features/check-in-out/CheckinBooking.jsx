@@ -6,8 +6,13 @@ import Heading from "../../ui/Heading";
 import ButtonGroup from "../../ui/ButtonGroup";
 import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
+import Checkbox from "../../ui/Checkbox";
 
 import { useMoveBack } from "../../hooks/useMoveBack";
+import { useBooking } from "../bookings/useBooking";
+import Spinner from "../../ui/Spinner";
+
+import { useEffect, useState } from "react";
 
 const Box = styled.div`
   /* Box */
@@ -18,17 +23,30 @@ const Box = styled.div`
 `;
 
 function CheckinBooking() {
+  const [paidConfirmed, setPaidConfirmed] = useState(false);
+  const { isLoading, booking } = useBooking();
   const moveBack = useMoveBack();
 
-  const booking = {};
+  useEffect(() => {
+    setPaidConfirmed(booking?.isPaid ?? false);
+  }, [booking]);
+
+  if (isLoading) return <Spinner />;
 
   const {
     id: bookingId,
-    guests,
-    totalPrice,
-    numGuests,
-    hasBreakfast,
+    created_at,
+    startDate,
+    endDate,
     numNights,
+    numGuests,
+    cabinPrice,
+    extrasPrice,
+    totalPrice,
+    hasBreakfast,
+    observations,
+    isPaid,
+    guests: { fullName: guestName },
   } = booking;
 
   function handleCheckin() {}
@@ -39,15 +57,32 @@ function CheckinBooking() {
         <Heading as="h1">Check in booking #{bookingId}</Heading>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
+      <br />
 
       <BookingDataBox booking={booking} />
-
-      <ButtonGroup>
-        <Button onClick={handleCheckin}>Check in booking #{bookingId}</Button>
-        <Button variation="secondary" onClick={moveBack}>
-          Back
-        </Button>
-      </ButtonGroup>
+      <Box>
+        <Checkbox
+          checked={paidConfirmed}
+          id="confirmed"
+          onChange={() => setPaidConfirmed((x) => !x)}
+          disabled={paidConfirmed}
+        >
+          I confirm that {guestName} has paid the total amount
+        </Checkbox>
+        <ButtonGroup>
+          <Button
+            variations="primary"
+            size={"medium"}
+            onClick={handleCheckin}
+            disabled={!paidConfirmed}
+          >
+            Check in booking #{bookingId}
+          </Button>
+          <Button variations="secondary" size="small" onClick={moveBack}>
+            Back
+          </Button>
+        </ButtonGroup>
+      </Box>
     </>
   );
 }
