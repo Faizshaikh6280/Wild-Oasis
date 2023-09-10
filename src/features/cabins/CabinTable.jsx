@@ -50,6 +50,7 @@ function CabinTable() {
     default:
       filteredCabins = cabins;
   }
+
   //2. Sorting
   const sortBy = searchParams.get("sortBy") || "";
   const [field, way] = sortBy.split("-");

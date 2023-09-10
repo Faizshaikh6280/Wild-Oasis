@@ -2,7 +2,7 @@ import Filter from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 function CabinTableOperations() {
   return (
-    <div>
+    <>
       <Filter
         filterField={"discount"}
         options={[
@@ -23,7 +23,7 @@ function CabinTableOperations() {
         ]}
         type="white"
       />
-    </div>
+    </>
   );
 }
 

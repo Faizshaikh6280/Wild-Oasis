@@ -51,9 +51,8 @@ function BookingRow({
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
-    "checked-out": "silver",
+    "checked-out": "red",
   };
-
   return (
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
