@@ -25,6 +25,6 @@ export const getToday = function (options = {}) {
 };
 
 export const formatCurrency = (value) =>
-  new Intl.NumberFormat("in", { style: "currency", currency: "INR" }).format(
+  new Intl.NumberFormat("inr", { style: "currency", currency: "INR" }).format(
     value
   );
