@@ -28,6 +28,7 @@ function BookingDetail() {
   const { isLoading, booking } = useBooking();
   const { checkout, isCheckout } = useCheckout();
   const { isDeleletingBooking, deleteBooking } = useDeleteBooking();
+
   function handledDelete() {
     deleteBooking(booking.id, {
       onSuccess: navigate(-1),
