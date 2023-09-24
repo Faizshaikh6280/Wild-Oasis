@@ -80,14 +80,12 @@ function Modal({ children }) {
 //3.Create child component
 function Open({ children, opens: opensWindowName }) {
   const { open } = useContext(ModalContext);
-
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 
 function Window({ children, name }) {
   const { close, openName } = useContext(ModalContext);
   const ref = useOuterClick(close);
-
   if (name !== openName) return null;
   return createPortal(
     <Overlay>

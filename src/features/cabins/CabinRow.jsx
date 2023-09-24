@@ -46,9 +46,11 @@ const Discount = styled.div`
   font-weight: 500;
   color: var(--color-green-700);
 `;
+
 function CabinRow({ cabin }) {
   const { isDeleting, deleteCabin } = useDeleteCabin();
   const { isCreating, createCabin } = useCreateCabin();
+
   const {
     id: cabinID,
     description,

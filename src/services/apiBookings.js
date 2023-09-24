@@ -95,6 +95,7 @@ export async function getStaysTodayActivity() {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
+
   return data;
 }
 

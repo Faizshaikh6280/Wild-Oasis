@@ -16,9 +16,10 @@ export function useBookings() {
   //2. Sorting
   const sortByRaw = searchParams.get("sortBy") || "startDate-desc";
   const [field, way] = sortByRaw.split("-");
+
   const sortBy = { field, way };
   //3. Pagination
-  const curPage = +searchParams.get("page") || 1;
+  const curPage = searchParams.get("page") ? +searchParams.get("page") : 1;
 
   const {
     data = {},
@@ -28,8 +29,8 @@ export function useBookings() {
     queryKey: ["bookings", filter, sortBy, curPage],
     queryFn: () => getBookings({ filter, sortBy, curPage }),
   });
-  const { data: bookings, count } = data;
 
+  const { data: bookings, count } = data;
   //4. Prefetching the pages.
   const pageCount = count / PAGE_SIZE;
   //for next page
@@ -39,6 +40,7 @@ export function useBookings() {
       queryFn: () => getBookings({ filter, sortBy, curPage: curPage + 1 }),
     });
   }
+
   //for prev page
   if (curPage > 1) {
     queryClient.prefetchQuery({
