@@ -20,6 +20,7 @@ const Avatar = styled.img`
   border-radius: 50%;
   outline: 2px solid var(--color-grey-100);
 `;
+
 function UserAvatar() {
   const { user } = useUser();
   const { avatar, fullName } = user.user_metadata;
@@ -33,5 +34,4 @@ function UserAvatar() {
     </StyledUserAvatar>
   );
 }
-
 export default UserAvatar;

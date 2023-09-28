@@ -20,7 +20,6 @@ export function useBookings() {
   const sortBy = { field, way };
   //3. Pagination
   const curPage = searchParams.get("page") ? +searchParams.get("page") : 1;
-
   const {
     data = {},
     isLoading,
